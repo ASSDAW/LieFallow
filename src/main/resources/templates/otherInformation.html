@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>otherInformation</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/plugin/layui/layui.js"></script>
+    <link rel="stylesheet" href="/static/plugin/layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="/static/css/common.css">
+</head>
+<body>
+<div th:replace="include/header :: myheader" ></div>
+<div class="main-content item-box">
+
+    <div class="item-type" style="height: 630px;background: #FFFFFF">
+        <div class="column-item-title layui-row subject-color font-color1 font-bold">个人简介</div>
+        <div class="jianjie-p layui-row">
+            <div style="margin-left: 28%">
+                <img th:src="@{${user.userPhoto}}" width="120px" height="80px" class="img-rounded"><br>
+                <label style="margin-left: 28px;margin-top: 15px">账号：[[${user.userId}]]</label><br>
+                <label style="margin-left: 28px">昵称：[[${user.userName}]]</label><br>
+                <label style="margin-left: 28px">年龄：[[${user.userAge}]]</label><br>
+                <label style="margin-left: 28px">性别：[[${user.userSex}]]</label>
+            </div>
+            <a class="layui-btn" style="margin-left:100px;margin-top:12px"
+                th:href="@{'/dialogue/'+${user.userId}}">私信</a>
+            <div th:if="${flag == false}">
+                <form method="post" th:action="@{/insertConcern}">
+                    <input type="hidden" name="concernUserId" th:value="${session.user.userId}">
+                    <input type="hidden" name="concernPeopleId" th:value="${user.userId}">
+                    <input type="submit" class="layui-btn" style="margin-left: 100px;margin-top:12px"  th:value="关注">
+                </form>
+            </div>
+            <div th:if="${flag == true}">
+                <form method="post" th:action="@{/deleteConcern}">
+                    <input type="hidden" name="concernUserId" th:value="${session.user.userId}">
+                    <input type="hidden" name="concernPeopleId" th:value="${user.userId}">
+                    <input type="submit" class="layui-btn" style="margin-left: 100px;margin-top:12px" th:value="取消关注">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="item-list" style="height: 630px;background: #FFFFFF">
+        <div th:each="theArticleDTO:${theArticleDTOs}">
+            <ul class="article-ul">
+                <li style="height: 95px">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object img-rounded" style=" width: 100px;margin-top: 9px;margin-left: 10px"
+                                 th:src="@{${theArticleDTO.userPhoto}}">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <a th:href="@{'/articleDetail/'+ ${theArticleDTO.articleId}}" style="color: #0f0f0f;text-decoration:none">
+                            <h4 class="media-heading" style="margin-top: 20px">[[${theArticleDTO .articleTitle}]]</h4>
+                            <br>
+                            <span style="color: #999;font-size: 14px">作者:[[${theArticleDTO.userName}]] &nbsp;
+                                点击数:[[${theArticleDTO.hitNum}]]&nbsp; 回复数:[[${theArticleDTO.remarkNum}]]</span>
+                        </a>
+                    </div>
+                </li>
+                <hr>
+            </ul>
+        </div>
+
+        <div class="page-box layui-row">
+            <!--分页-->
+            <ul class="pagination pagination-lg" style="margin-top:2px;float:right">
+                <li>
+                    <a th:href="@{'/otherInformation/'+ ${user.userId}(page=${page-1})}" aria-label="Previous" th:class="${page == 1 ? 'btn disabled':'btn'}">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                <li th:each="i:${#numbers.sequence(1,totalPage)}" role="presentation" th:class="${page == i ? 'active':''}">
+                    <a th:href="@{'/otherInformation/'+ ${user.userId}(page=${i})}">[[${i}]]</a>
+                </li>
+
+                <li >
+                    <a th:href="@{'/otherInformation/'+ ${user.userId}(page=${page+1})}" aria-label="Next" th:class="${page < totalPage ? 'btn':'btn disabled'}">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+
+</div>
+</body>
+</html>

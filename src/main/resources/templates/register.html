@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div th:replace="include/header :: myheader" ></div>
+<div style="width: 30%;margin-left: 35%;margin-top: 120px">
+<form th:action="@{/checkRegister}" method="post">
+    <div class="form-group">
+        <label for="userId">账号：</label>
+        <input type="text" class="form-control" id="userId" name="userId" placeholder="账号">
+    </div>
+    <div class="form-group">
+        <label for="userPassword">密码：</label>
+        <input type="password" class="form-control" id="userPassword" name="userPassword" placeholder="密码">
+    </div>
+    <div class="form-group">
+        <label for="userName">昵称：</label>
+        <input type="text" class="form-control" id="userName" name="userName" placeholder="昵称">
+    </div>
+    <div class="form-group">
+        <label for="userAge">年龄：</label>
+        <input type="number" class="form-control" id="userAge" name="userAge" placeholder="年龄">
+    </div>
+    <div class="checkbox">
+        <label>
+            性别：
+            <input   type="radio"   value="男"    name="userSex"  checked="checked"/>男
+            <input   type="radio"   value="女"    name="userSex"  />女
+        </label>
+    </div>
+    <div style="text-align:center">
+        <button type="submit" class="btn btn-success">注册并登录</button>
+        <a href="/login" class="btn btn-success">登录</a>
+    </div>
+</form>
+<div class="alert alert-danger" role="alert" th:if="${msgs} != null">
+    <div th:each="msg:${msgs}">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        [[${msg}]]
+    </div>
+</div>
+</div>
+<!--<div th:replace="include/fooder :: myfooder" ></div>-->
+</body>
+</html>
