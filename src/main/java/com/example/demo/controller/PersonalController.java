@@ -5,6 +5,7 @@ import com.example.demo.dto.MyRemarkDTO;
 import com.example.demo.dao.*;
 import com.example.demo.pojo.User;
 import com.example.demo.service.PersonalService;
+import com.example.demo.util.ShiroEncryption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,6 +29,9 @@ public class PersonalController {
 
     @PutMapping("/update")
     public String update(User user, HttpServletRequest request){
+        String salt = userDao.findById(user.getUserId()).getSalt();
+        user.setSalt(salt);
+        user.setIsLock(0);
         userDao.update(user);
         request.getSession().setAttribute("user",user);
         return "personal";
@@ -57,7 +61,9 @@ public class PersonalController {
 
     @DeleteMapping("/deleteRemark")
     public String deleteRemark(@RequestParam Long remarkId){
+        Long articleId = remarkDao.findById(remarkId).getArticleId();
         remarkDao.delete(remarkId);
+        remarkDao.updateRemarkNum(articleId);
         return "redirect:myRemark?page=1";
     }
 }

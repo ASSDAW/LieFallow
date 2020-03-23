@@ -15,5 +15,6 @@ public class Article {
     private Date lastRemarkTime;
     private Integer remarkNum;
     private Integer hitNum;
+    private Integer isDel;
 
 }

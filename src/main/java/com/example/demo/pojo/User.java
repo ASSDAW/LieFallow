@@ -11,8 +11,10 @@ public class User {
     @NotBlank(message = "帐号不能为空")
     private String userId;
 
-    @Length(min = 6,max = 10,message = "密码不得小于6位，不得超过10位")
+
     private String userPassword;
+
+    private String salt;
 
     @Length(min = 2,max = 8,message = "昵称不得小于2位，不得超过8位")
     private String userName;
@@ -21,7 +23,11 @@ public class User {
     @Min(value = 16,message = "年龄不得小于16岁")
     private Integer userAge;
 
+    private int isLock;
+
     private String userSex;
     private String userPhoto;
+
+    private int isAdmin;
 
 }

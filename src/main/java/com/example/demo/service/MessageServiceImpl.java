@@ -80,6 +80,7 @@ public class MessageServiceImpl implements MessageService {
         message.setSendMessage(sendMessgae);
         message.setSendTime(sendTime);
         message.setIsRead(isRead);
+        message.setIsDel(0);
         messageDao.insertMessage(message);
         return "redirect:dialogue/" + receiverId;
     }

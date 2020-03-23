@@ -8,6 +8,6 @@ import java.util.List;
 
 @Mapper
 public interface ArticleRemarkDTODao {
-    @Select("select * from remark,user where remark.articleId = #{articleId} and remark.remarkUserId = user.userId")
+    @Select("select * from remark,user where remark.articleId = #{articleId} and remark.remarkUserId = user.userId and isDel = 0")
     List<ArticleRemarkDTO> findAllByArticleId(Long articleId);
 }

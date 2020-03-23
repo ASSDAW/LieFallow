@@ -68,8 +68,10 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">密码框</label>
                     <div class="layui-input-block">
-                        <input type="password" name="userPassword" id="userPassword"  th:value="${session.user.userPassword}" class="layui-input">
+                         <input type="password" value="******" disabled class="layui-input">
                     </div>
+                    <input type="hidden" name="userPassword" id="userPassword"  th:value="${session.user.userPassword}" class="layui-input">
+
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">用户名</label>

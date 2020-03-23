@@ -65,6 +65,9 @@ public class ArticleServiceImpl implements ArticleService {
         }
         else if (tag.equals("attention")){
             User sessionUser = (User)request.getSession().getAttribute("user");
+            if (sessionUser == null){
+                return "login";
+            }
             List<String> userConcern = articleDetailDTODao.findUserConcern(sessionUser.getUserId());
             if (userConcern.size()==0){
                 articleDetailDTOS =null;
@@ -97,6 +100,9 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public String toArticleDetail(Long articleId, HttpServletRequest request) {
         User SessionUser = (User)request.getSession().getAttribute("user");
+        if (SessionUser == null){
+            return "login";
+        }
         boolean flag = false;
         if (collectionDao.selectCollection(Long.valueOf(SessionUser.getUserId()),articleId) == 1){
             flag = true;
@@ -118,6 +124,7 @@ public class ArticleServiceImpl implements ArticleService {
         Timestamp remarkTime = new Timestamp(System.currentTimeMillis());//当前时间
         remark.setRemarkUserId(SessionUser.getUserId());
         remark.setRemarkTime(remarkTime);
+        remark.setIsDel(0);
 
         TransactionDefinition tf = new DefaultTransactionDefinition();
         TransactionStatus ts = txManager.getTransaction(tf);
@@ -148,6 +155,7 @@ public class ArticleServiceImpl implements ArticleService {
         article.setLastRemarkTime(lastRemarkTime);
         article.setRemarkNum(remarkNum);
         article.setHitNum(hitNum);
+        article.setIsDel(0);
         String fileName ="";
         try {
             if (articleInputFile.isEmpty()) {

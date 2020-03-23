@@ -12,4 +12,5 @@ public class Message {
     private String sendMessage;
     private Date sendTime;
     private Integer isRead;
+    private Integer isDel;
 }

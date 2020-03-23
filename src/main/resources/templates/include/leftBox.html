@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>leftBox</title>
+    <link rel="stylesheet" href="/static/css/layui.css">
+</head>
+<body>
+<div th:fragment="myLeftBox">
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item"><a th:href="@{/admin/userMG}" th:class="${tag == 'userMG'?'layui-this':''}">用户账号管理</a></li>
+                <li class="layui-nav-item"><a th:href="@{/admin/articleMG}" th:class="${tag == 'articleMG'?'layui-this':''}">帖子管理</a></li>
+                <li class="layui-nav-item"><a th:href="@{/admin/remarkMG}" th:class="${tag == 'remarkMG'?'layui-this':''}">评论管理</a></li>
+                <li class="layui-nav-item"><a th:href="@{/admin/messageMG}" th:class="${tag == 'messageMG'?'layui-this':''}">私信管理</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

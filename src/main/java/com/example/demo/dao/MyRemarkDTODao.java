@@ -10,9 +10,10 @@ import java.util.List;
 public interface MyRemarkDTODao {
     @Select("select remark.*,articleTitle,articleAuthorId,userName \n" +
             "from remark,article,user where remark.articleId = article.articleId " +
-            "and article.articleAuthorId = user.userId and remark.remarkUserId=#{remarkUserId} limit #{page},#{pageSize}")
+            "and article.articleAuthorId = user.userId and remark.remarkUserId=#{remarkUserId} " +
+            "and remark.isDel = 0 limit #{page},#{pageSize}")
     public List<MyRemarkDTO> findMyRemarkByUserId(Long remarkUserId, Integer page, Integer pageSize);
 
-    @Select("select count(remarkUserId) from remark where remarkUserId = #{remarkUserId}")
+    @Select("select count(remarkUserId) from remark where remarkUserId = #{remarkUserId} and isDel = 0")
     public Integer countMyRemarkByUserId(Long remarkUserId);
 }

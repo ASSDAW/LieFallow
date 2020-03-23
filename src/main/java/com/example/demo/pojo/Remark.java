@@ -10,6 +10,7 @@ public class Remark {
     private String remarkContent;
     private Date remarkTime;
     private Long articleId;
+    private Integer isDel;
 }
 
 
