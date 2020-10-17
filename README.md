@@ -10,4 +10,4 @@
 
 发帖只能上传一张图片，用户修改头像只能在\\resources\\static\\uploadFile目录下的图片中选择。
 
-![Image text](https://github.com/beiweixiaohuo/picture/blob/main/1.png)
+![Image text](http://120.27.245.202:8091/static/uploadFile/girl.jpg)
